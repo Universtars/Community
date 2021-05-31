@@ -25,18 +25,15 @@ public class AlphaService {
 
     // 构造器
     public AlphaService(){
-        System.out.println("AlphaService的构造器");
     }
 
     // 在Bean被创建之后调用
     @PostConstruct
     public void init(){
-        System.out.println("AlphaService被创建");
     }
 
     // 在Bean被销毁前调用
     @PreDestroy
     public void destory(){
-        System.out.println("AlphaService即将被销毁");
     }
 }
