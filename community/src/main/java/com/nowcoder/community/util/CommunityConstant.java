@@ -14,9 +14,9 @@ public interface CommunityConstant {
     int ACTIVATION_FAIL = 2;
 
     /*
-    登录-记住我
+    登录-记住我-秒
      */
-    int VALID_TIME_REMEMBER = 3600 * 24 * 100;
+    int VALID_TIME_REMEMBER = 60*60 * 24 * 100;
     int VALID_TIME_NOT_REMEMBER = 3600 * 24;
 
 

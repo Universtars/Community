@@ -167,16 +167,34 @@ public class UserService implements CommunityConstant {
         LoginTicket ticket = new LoginTicket();
         ticket.setUserId(userInDB.getId());
         ticket.setTicket(CommunityUtil.generateUUID().substring(0, 6));
-        ticket.setStatus(0);
-        ticket.setExpired(new Date(System.currentTimeMillis() + 60 * expiredSeconds));
-
+        ticket.setStatus(0);// 该登录凭证是有效的
+        ticket.setExpired(new Date(System.currentTimeMillis()+expiredSeconds*1000));
+        loginTicketMapper.insertOneTicket(ticket);
         map.put("ticket", ticket.getTicket());
         return map;
     }
 
 
+    /**
+     * 登录模块 - 退出功能
+     * @param ticket 要退出的登录凭证
+     */
+    public void logOut(String ticket){
+        // 在DB中，修改该ticket的状态为1，表示该ticket失效
+        loginTicketMapper.updateStatusByTicket(ticket,1);
+    }
+
     public User getUserById(int id) {
         return userMapper.selectById(id);
     }
 
+    /**
+     * 从DB中拿到用户的ticket
+     * ① MySQL login-ticket表
+     * @param ticket
+     * @return
+     */
+    public LoginTicket findLoginTicket(String ticket) {
+        return loginTicketMapper.selectByTicket(ticket);
+    }
 }

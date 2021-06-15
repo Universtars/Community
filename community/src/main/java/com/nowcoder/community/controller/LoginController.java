@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -170,6 +171,7 @@ public class LoginController implements CommunityConstant {
 
     /**
      * 用户登录
+     *
      * @param username
      * @param password
      * @param code       验证码
@@ -179,7 +181,7 @@ public class LoginController implements CommunityConstant {
      * @param model      向其中添加错误信息，稍后将其传送到结果页
      * @return
      */
-    @RequestMapping(path = "/login",method = RequestMethod.POST)
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(String username, String password, String code, boolean rememberme,
                         HttpSession session, HttpServletResponse response, Model model) {
         // 检查验证码 login
@@ -190,8 +192,7 @@ public class LoginController implements CommunityConstant {
             return "/site/login";
         }
         // 检查用户名、密码
-        long validSeconds = rememberme ? VALID_TIME_REMEMBER : VALID_TIME_NOT_REMEMBER;
-        long expiredSeconds = System.currentTimeMillis() + validSeconds;
+        long expiredSeconds = rememberme ? VALID_TIME_REMEMBER : VALID_TIME_NOT_REMEMBER;
         Map<String, Object> map = userService.login(username, password, expiredSeconds);
         if (!map.containsKey("ticket")) {
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
@@ -202,11 +203,18 @@ public class LoginController implements CommunityConstant {
             String ticket = map.get("ticket").toString();
             Cookie cookie = new Cookie("ticket", ticket);
             cookie.setPath(contextPath);
-            cookie.setMaxAge((int)expiredSeconds);
+            cookie.setMaxAge((int) expiredSeconds);
             response.addCookie(cookie);
             // 重定向到首页
             return "redirect:/index";
         }
     }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String logOut(@CookieValue("ticket") String toValidTicket){
+        userService.logOut(toValidTicket);
+        return "redirect:/index";
+    }
+
 
 }
