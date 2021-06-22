@@ -27,4 +27,11 @@ public interface DiscussPostMapper {
     动态拼一个条件，且该方法只有一个条件，要取别名，使用@Param("userId")
      */
     public int getDiscussPostCount(@Param("userId") int userId);
+
+    /**
+     * 新增一条贴子
+     * @param discussPost
+     * @return 受影响的数据库行数
+     */
+    int insertDiscussPost(DiscussPost discussPost);
 }
