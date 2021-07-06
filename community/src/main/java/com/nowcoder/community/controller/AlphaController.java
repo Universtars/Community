@@ -2,11 +2,9 @@ package com.nowcoder.community.controller;
 
 import com.nowcoder.community.service.AlphaService;
 import com.nowcoder.community.util.CommunityUtil;
-import com.sun.deploy.net.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -87,7 +85,7 @@ public class AlphaController {
         return mav;
     }
 
-    // 响应HTML 方法二
+    // 响应HTML 方法二（推荐）
     @RequestMapping(path = "/school", method = RequestMethod.GET)
     public String getSchool(Model model) {
         model.addAttribute("name", "北京");

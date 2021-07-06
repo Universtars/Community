@@ -34,4 +34,11 @@ public interface DiscussPostMapper {
      * @return 受影响的数据库行数
      */
     int insertDiscussPost(DiscussPost discussPost);
+
+    /**
+     * 用于查看贴子
+     * @param id 贴子id
+     * @return
+     */
+    DiscussPost selectDiscussPostById(int id);
 }

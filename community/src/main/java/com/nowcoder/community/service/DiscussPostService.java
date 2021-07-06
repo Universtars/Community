@@ -50,4 +50,13 @@ public class DiscussPostService {
 
         return discussPostMapper.insertDiscussPost(post);
     }
+
+    /**
+     * 用于查看贴子详情页
+     * @param id 贴子id
+     * @return
+     */
+    public DiscussPost findDiscussPostById(int id) {
+        return discussPostMapper.selectDiscussPostById(id);
+    }
 }

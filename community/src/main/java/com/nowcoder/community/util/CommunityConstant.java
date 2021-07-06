@@ -16,8 +16,18 @@ public interface CommunityConstant {
     /*
     登录-记住我-秒
      */
-    int VALID_TIME_REMEMBER = 60*60 * 24 * 100;
+    int VALID_TIME_REMEMBER = 60 * 60 * 24 * 100;
     int VALID_TIME_NOT_REMEMBER = 3600 * 24;
 
+
+    /**
+     * 实体类型: 帖子
+     */
+    int ENTITY_TYPE_POST = 1;
+
+    /**
+     * 实体类型: 评论
+     */
+    int ENTITY_TYPE_COMMENT = 2;
 
 }
